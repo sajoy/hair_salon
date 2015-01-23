@@ -26,18 +26,29 @@ get('/stylist/:id') do
   erb(:stylist)
 end
 
-#
-# post("/lists") do
-#   name = params.fetch("name")
-#   list = List.new({:name => name, :id => nil})
-#   list.save()
-#   @lists = List.all()
-#   erb(:index)
-# end
-#
-# get("/lists/:id") do
-#   @id = params.fetch("id").to_i
-#   @list = List.find(@id)
-#   @tasks = @list.tasks()
-#   erb(:list)
-# end
+post('/add_client') do
+  name = params["name"]
+  @id = params["stylist_id"].to_i()
+  new_client = Client.new({:name => name, :id => nil})
+  new_client.save()
+  @stylist = Stylist.find(@id)
+  @stylist.add_client(new_client)
+  @clients = @stylist.clients()
+  erb(:stylist)
+end
+
+patch('/stylist/:id/edit') do
+  name = params.fetch("name")
+  @stylist = Stylist.find(params["id"].to_i())
+  @stylist.update({:name => name})
+  @clients = @stylist.clients()
+  @id = @stylist.id()
+  erb(:stylist)
+end
+
+delete("/stylist/:id/delete") do
+  @stylist = Stylist.find(params["id"].to_i())
+  @stylist.delete()
+  @stylists = Stylist.all()
+  erb(:index)
+end

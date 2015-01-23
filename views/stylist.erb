@@ -1,23 +1,48 @@
+<div class="main col-md-6 main_content">
 
-<form action="/add_client" method="post">
-  <label for="name">Client Name</label>
-  <input id="name" name="name" type="text">
+  <h2> <%= @stylist.name() %>'s Client List </h2>
 
-  <button type="submit">Add Client</button>
-</form>
+  <% if @clients.any?() %>
+    <ul>
+      <% @clients.each() do |client| %>
+        <li><a class ="btn btn-block btn-lg btn-info" href="#"><%= client.name() %></a></li>
+      <% end %>
+    </ul>
+
+  <% else %>
+
+    <h3> No clients yet. </h3>
+
+  <% end %>
+</div>
 
 
-<h2> <%= @stylist.name() %>'s Client List </h2>
+<div class="col-md-4 sidebar">
+  <h2> Add Client </h2>
+  <form action="/add_client" method="post">
+    <label for="name">Client Name</label>
+    <input class ="form-control"  id="name" name="name" type="text">
 
-<% if @clients.any?() %>
-  <ul>
-    <% @clients.each() do |client| %>
-      <li><%= client.name() %> </li>
-    <% end %>
+    <input id="stylist_id" name="stylist_id" type="hidden" value="<%= @id %>">
+
+    <button class="btn btn-success" type="submit">Add Client</button>
+  </form>
+
+  <h2> Update Stylist's Name </h2>
+  <form action="/stylist/<%= @id %>/edit" method="post">
+    <input name="_method" type="hidden" value="patch">
+    <label for="name">Stylist Name</label>
+    <input class ="form-control"  id="name" name="name" type="text">
+
+    <button class="btn btn-success" type="submit">Edit Stylist</button>
+  </form>
+
+  <h2> Delete Stylist </h2>
+  <form action="/stylist/<%= @id %>/delete" method="post">
+    <input name="_method" type="hidden" value="delete">
+    <button class="btn btn-danger" type="submit">Delete Stylist</button>
+  </form>
 
 
-  </ul>
 
-<% else %>
-  <h3> No clients yet. </h3>
-<% end %>
+</div>

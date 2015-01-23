@@ -1,23 +1,27 @@
+<div class="main col-md-6 main_content">
 
-<form action="/add_stylist" method="post">
-  <label for="name">Stylist Name</label>
-  <input id="name" name="name" type="text">
+  <h2> Stylist Master List </h2>
 
-  <button type="submit">Add Stylist</button>
-</form>
-
-
-<h2> Stylist Master List </h2>
-
-<% if @stylists.any?() %>
-  <ul>
-    <% @stylists.each() do |stylist| %>
-      <li>  <a class="btn btn-primary" href="/stylist/<%= stylist.id() %>"> <%= stylist.name() %> </a></li>
-    <% end %>
+  <% if @stylists.any?() %>
+    <ul>
+      <% @stylists.each() do |stylist| %>
+        <li>  <a class="btn btn-block btn-lg btn-primary" href="/stylist/<%= stylist.id() %>"> <%= stylist.name() %> </a></li>
+      <% end %>
 
 
-  </ul>
+    </ul>
 
-<% else %>
-  <h3> No Stylists Yet. Hire someone! </h3>
-<% end %>
+  <% else %>
+    <h3> No Stylists Yet. Hire someone! </h3>
+  <% end %>
+
+</div>
+
+<div class="col-md-4 sidebar">
+  <h2> Add Stylist </h2>
+  <form action="/add_stylist" method="post">
+    <label for="name">Stylist Name</label>
+    <input class ="form-control" id="name" name="name" type="text">
+    <button class = "btn btn-success" type="submit">Add Stylist</button>
+  </form>
+</div>
