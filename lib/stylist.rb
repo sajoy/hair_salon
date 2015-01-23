@@ -12,6 +12,16 @@ class Stylist
     @id = result.first().fetch("id").to_i()
   end
 
+  define_method(:update) do |attributes|
+    @name = attributes[:name]
+    DB.exec("UPDATE stylists SET name = '#{@name}' WHERE id = #{self.id()};")
+  end
+
+  define_method(:delete) do
+    DB.exec("DELETE FROM stylists WHERE id = #{self.id()};")
+    DB.exec("DELETE FROM appointments WHERE stylist_id = #{self.id()}")
+  end
+
   define_singleton_method(:all) do
     all_stylists = []
     data = DB.exec("SELECT * FROM stylists;")
@@ -28,7 +38,6 @@ class Stylist
   end
 
   define_method(:add_client) do |client|
-    #check if client belongs to another stylist
     data = DB.exec("SELECT * FROM appointments WHERE client_id = #{client.id()};")
     if data.first() == nil
     DB.exec("INSERT INTO appointments (stylist_id, client_id) VALUES (#{self.id()}, #{client.id()});")

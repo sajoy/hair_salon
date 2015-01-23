@@ -12,6 +12,16 @@ class Client
     @id = result.first().fetch("id").to_i()
   end
 
+  define_method(:update) do |attributes|
+    @name = attributes[:name]
+    DB.exec("UPDATE clients SET name = '#{@name}' WHERE id = #{self.id()};")
+  end
+
+  define_method(:delete) do
+    DB.exec("DELETE FROM clients WHERE id = #{self.id()};")
+    DB.exec("DELETE FROM appointments WHERE client_id = #{self.id()}")
+  end
+
   define_singleton_method(:all) do
     all_clients = []
     data = DB.exec("SELECT * FROM clients;")

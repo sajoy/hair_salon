@@ -25,6 +25,24 @@ describe(Stylist) do
     end
   end
 
+  describe("#update") do
+    it("will allow a user to update a Stylist's name") do
+      stylist1 = Stylist.new({:name => "Avril L.", :id => nil})
+      stylist1.save()
+      stylist1.update({:name => "April L."})
+      expect(stylist1.name()).to(eq("April L."))
+    end
+  end
+
+  describe("#delete") do
+    it("will delete a Stylist from the database") do
+      stylist1 = Stylist.new({:name => "Avril L.", :id => nil})
+      stylist1.save()
+      stylist1.delete()
+      expect(Stylist.all()).to(eq([]))
+    end
+  end
+
   describe(".all") do
     it("will start empty") do
       expect(Stylist.all()).to(eq([]))
