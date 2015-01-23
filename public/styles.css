@@ -23,6 +23,10 @@ h1 {
   padding: 50px;
 }
 
+form {
+  margin-bottom: 15px;
+
+}
 
 li {
   list-style: none;

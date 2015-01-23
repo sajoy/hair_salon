@@ -1,0 +1,28 @@
+
+<% if @clients.any?() %>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Client</th>
+        <th>Stylist</th>
+      </tr>
+    </thead>
+
+    <% @clients.each() do |client| %>
+
+      <tr>
+        <td><%= client.name() %></td>
+        <td>
+          <% if client.stylist() != "Needs A Stylist" %>
+            <%= client.stylist() %>
+          <% else %>
+            "Needs A Stylist"
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+
+  </table>
+
+<% end %>>

@@ -67,5 +67,23 @@ describe(Client) do
     end
   end
 
+  describe("#stylist") do
+    it("will return a client's stylist") do
+      client1 = Client.new({:name => "Lily A.", :id => nil})
+      client1.save()
+      stylist1 = Stylist.new({:name => "Harry P.", :di => nil})
+      stylist1.save()
+      stylist1.add_client(client1)
+      expect(client1.stylist()).to(eq(stylist1))
+    end
+
+    it("will return a string 'Needs A Stylist' if a client doesn't have one") do
+      client1 = Client.new({:name => "Lily A.", :id => nil})
+      client1.save()
+      expect(client1.stylist()).to(eq("Needs A Stylist"))
+
+    end
+
+  end
 
 end

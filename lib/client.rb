@@ -45,5 +45,19 @@ class Client
     name().==(other_client.name())
   end
 
+  define_method(:stylist) do
+    result = DB.exec("SELECT * FROM
+    appointments JOIN stylists ON (stylists.id = appointments.stylist_id)
+    WHERE appointments.client_id = #{self.id()};")
+    stylist = result.first()
+      if stylist != nil
+        name = stylist["name"]
+        id = stylist["id"]
+        return Stylist.new({:name => name, :id => id})
+      else
+        return "Needs A Stylist"
+      end
+  end
+
 
 end

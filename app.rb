@@ -73,6 +73,11 @@ end
 
 # client routes
 
+get('/all_clients') do
+  @clients = Client.all()
+  erb(:clients)
+end
+
 get('/client/:id') do
   @id = params["id"].to_i()
   @client = Client.find(@id)
