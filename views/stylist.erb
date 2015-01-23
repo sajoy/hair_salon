@@ -20,13 +20,28 @@
 <div class="col-md-4 sidebar">
 
   <form action="/add_client" method="post">
-    <label for="name"><h3> Add Client </h3></label>
+    <label for="name"><h3> Add New Client </h3></label>
     <input class ="form-control"  id="name" name="name" type="text">
 
     <input id="stylist_id" name="stylist_id" type="hidden" value="<%= @id %>">
 
     <button class="btn btn-success" type="submit">Add Client</button>
   </form>
+
+  <% if @all_clients.any?() %>
+    <form action="/add_old_client" method="post">
+    <label for="name"><h3> Add Existing Client </h3></label>
+
+    <label for="client_id">Select a Client</label>
+    <select id='client_id' name='client_id' type='text'>
+      <% @all_clients.each() do |client| %>
+      <option value="<%= client.id()%>"> <%= client.name() %> </option>
+      <% end %>
+    </select>
+    <input id="stylist_id" name="stylist_id" type="hidden" value="<%= @id %>">
+    <button class="btn btn-success" type="submit">Add Client</button>
+  </form>
+  <% end %>
 
   <form action="/stylist/<%= @id %>/edit" method="post">
     <input name="_method" type="hidden" value="patch">

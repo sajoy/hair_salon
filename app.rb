@@ -27,6 +27,7 @@ get('/stylist/:id') do
   @id = params["id"].to_i()
   @stylist = Stylist.find(@id)
   @clients = @stylist.clients()
+  @all_clients = Client.all()
   erb(:stylist)
 end
 
@@ -40,6 +41,17 @@ post('/add_client') do
     @stylist.add_client(new_client)
   end
   @clients = @stylist.clients()
+  erb(:stylist)
+end
+
+post('/add_old_client') do
+  client_id = params["client_id"].to_i()
+  @id = params["stylist_id"].to_i()
+  @stylist = Stylist.find(@id)
+  client = Client.find(client_id)
+  @stylist.add_client(client)
+  @clients = @stylist.clients()
+  @all_clients = Client.all()
   erb(:stylist)
 end
 
