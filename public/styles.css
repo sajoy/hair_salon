@@ -1,19 +1,36 @@
+body {
+  background-color: #000;
+}
+
+.container {
+  background-color: #fff;
+  min-height: 800px;
+  margin: 100px auto;
+}
+
 h1 {
   text-align: center;
 }
 
 .header {
   padding: 50px;
-
 }
 
 
 li {
   list-style: none;
-  margin: 5px;
+}
+
+.btn {
+  margin: 5px;  
 }
 
 .main_content {
   background-color:
+}
+
+
+.client_name {
+
 
 }

@@ -17,6 +17,14 @@ describe(Client) do
     end
   end
 
+  describe(".find") do
+    it("will return a Client by its given id") do
+      client1 = Client.new({:name => "George W.", :id => nil})
+      client1.save()
+      expect(Client.find(client1.id())).to(eq(client1))
+    end
+  end
+
   describe("#save") do
     it("will save a new Client to the hair_salon database") do
       client1 = Client.new({:name => "Lily A.", :id => nil})

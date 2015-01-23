@@ -1,11 +1,11 @@
-<div class="main col-md-6 main_content">
+<div class="main col-md-8 main_content">
 
   <h2> <%= @stylist.name() %>'s Client List </h2>
 
   <% if @clients.any?() %>
     <ul>
       <% @clients.each() do |client| %>
-        <li><a class ="btn btn-block btn-lg btn-info" href="#"><%= client.name() %></a></li>
+        <li><a class ="btn btn-block btn-lg btn-info" href="/client/<%= client.id() %>"><%= client.name() %></a></li>
       <% end %>
     </ul>
 

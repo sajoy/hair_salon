@@ -14,10 +14,14 @@ end
 
 post('/add_stylist') do
   name = params["name"]
-  new_stylist = Stylist.new({:name => name, :id => nil})
-  new_stylist.save()
+  if name.!=("")
+    new_stylist = Stylist.new({:name => name, :id => nil})
+    new_stylist.save()
+  end
   redirect('/')
 end
+
+# stylist routes
 
 get('/stylist/:id') do
   @id = params["id"].to_i()
@@ -29,10 +33,12 @@ end
 post('/add_client') do
   name = params["name"]
   @id = params["stylist_id"].to_i()
-  new_client = Client.new({:name => name, :id => nil})
-  new_client.save()
   @stylist = Stylist.find(@id)
-  @stylist.add_client(new_client)
+  if name.!=("")
+    new_client = Client.new({:name => name, :id => nil})
+    new_client.save()
+    @stylist.add_client(new_client)
+  end
   @clients = @stylist.clients()
   erb(:stylist)
 end
@@ -51,4 +57,26 @@ delete("/stylist/:id/delete") do
   @stylist.delete()
   @stylists = Stylist.all()
   erb(:index)
+end
+
+# client routes
+
+get('/client/:id') do
+  @id = params["id"].to_i()
+  @client = Client.find(@id)
+  erb(:client)
+end
+
+patch('/client/:id/edit') do
+  name = params.fetch("name")
+  @client = Client.find(params["id"].to_i())
+  @client.update({:name => name})
+  @id = @client.id()
+  erb(:client)
+end
+
+delete("/client/:id/delete") do
+  @client = Client.find(params["id"].to_i())
+  @client.delete()
+  redirect('/')
 end

@@ -34,7 +34,6 @@ class Stylist
   end
 
   define_singleton_method(:find) do |id|
-  puts id
     result = DB.exec("SELECT * FROM stylists WHERE id = #{id}")
     found = result.first()
     name = found["name"]

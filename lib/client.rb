@@ -12,6 +12,14 @@ class Client
     @id = result.first().fetch("id").to_i()
   end
 
+  define_singleton_method(:find) do |id|
+    result = DB.exec("SELECT * FROM clients WHERE id = #{id}")
+    found = result.first()
+    name = found["name"]
+    id = found["id"]
+    Client.new({:name => name, :id => id})
+  end
+
   define_method(:update) do |attributes|
     @name = attributes[:name]
     DB.exec("UPDATE clients SET name = '#{@name}' WHERE id = #{self.id()};")
