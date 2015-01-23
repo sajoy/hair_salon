@@ -27,5 +27,29 @@ class Stylist
     name().==(other_stylist.name())
   end
 
+  define_method(:add_client) do |client|
+    #check if client belongs to another stylist
+    data = DB.exec("SELECT * FROM appointments WHERE client_id = #{client.id()};")
+    if data.first() == nil
+    DB.exec("INSERT INTO appointments (stylist_id, client_id) VALUES (#{self.id()}, #{client.id()});")
+    end
+  end
+
+  define_method(:delete_client) do |client|
+    DB.exec("DELETE FROM appointments USING stylists WHERE stylists.id = #{self.id()} AND client_id = #{client.id()}")
+  end
+
+  define_method(:clients) do
+    clients = []
+    results = DB.exec("SELECT * FROM
+    appointments JOIN clients ON (clients.id = appointments.client_id)
+    WHERE appointments.stylist_id = #{self.id()};")
+    results.each() do |client|
+      name = client["name"]
+      id = client["id"]
+      clients.push(Client.new({:name => name, :id => id}))
+    end
+    clients
+  end
 
 end

@@ -49,5 +49,53 @@ describe(Stylist) do
     end
   end
 
+  describe("#add_client") do
+    it("will add assign a client to a Stylist") do
+      stylist1 = Stylist.new({:name => "Pepper P.", :id => nil})
+      stylist1.save()
+      client1 = Client.new({:name => "Yoshi", :id => nil})
+      client1.save()
+      stylist1.add_client(client1)
+      expect(stylist1.clients()).to(eq([client1]))
+    end
+
+    it("will not allow a client to be assigned to a second stylist") do
+      stylist1 = Stylist.new({:name => "Pepper P.", :id => nil})
+      stylist1.save()
+      stylist2 = Stylist.new({:name => "Jackson H.", :id => nil})
+      stylist2.save()
+      client1 = Client.new({:name => "Yoshi", :id => nil})
+      client1.save()
+      stylist1.add_client(client1)
+      stylist2.add_client(client1)
+      expect(stylist2.clients()).to(eq([]))
+    end
+  end
+
+  describe("#delete_client") do
+    it("will delete a client from a Stylist's list") do
+      stylist1 = Stylist.new({:name => "Pepper P.", :id => nil})
+      stylist1.save()
+      client1 = Client.new({:name => "Yoshi", :id => nil})
+      client1.save()
+      stylist1.add_client(client1)
+      stylist1.delete_client(client1)
+      expect(stylist1.clients()).to(eq([]))
+    end
+  end
+
+  describe("#clients") do
+    it("will return a Stylists client list") do
+      stylist1 = Stylist.new({:name => "Pepper P.", :id => nil})
+      stylist1.save()
+      client1 = Client.new({:name => "Yoshi", :id => nil})
+      client1.save()
+      stylist1.add_client(client1)
+      client2 = Client.new({:name => "Princess Peach", :id => nil})
+      client2.save()
+      stylist1.add_client(client2)
+      expect(stylist1.clients()).to(eq([client1, client2]))
+    end
+  end
 
 end
