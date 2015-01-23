@@ -1,0 +1,23 @@
+
+<form action="/add_stylist" method="post">
+  <label for="name">Stylist Name</label>
+  <input id="name" name="name" type="text">
+
+  <button type="submit">Add Stylist</button>
+</form>
+
+
+<h2> Stylist Master List </h2>
+
+<% if @stylists.any?() %>
+  <ul>
+    <% @stylists.each() do |stylist| %>
+      <li>  <a class="btn btn-primary" href="/stylist/<%= stylist.id() %>"> <%= stylist.name() %> </a></li>
+    <% end %>
+
+
+  </ul>
+
+<% else %>
+  <h3> No Stylists Yet. Hire someone! </h3>
+<% end %>

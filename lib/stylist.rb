@@ -33,6 +33,15 @@ class Stylist
     all_stylists
   end
 
+  define_singleton_method(:find) do |id|
+  puts id
+    result = DB.exec("SELECT * FROM stylists WHERE id = #{id}")
+    found = result.first()
+    name = found["name"]
+    id = found["id"]
+    Stylist.new({:name => name, :id => id})
+  end
+
   define_method(:==) do |other_stylist|
     name().==(other_stylist.name())
   end
