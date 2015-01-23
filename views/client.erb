@@ -1,4 +1,5 @@
 <div class="main col-md-8 main_content">
+  <h2> Client : </h2>
 
   <h2 class="client_name"> <%= @client.name() %></h2>
 
@@ -7,16 +8,16 @@
 
 <div class="col-md-4 sidebar">
 
-  <h2> Update Client's Name </h2>
+
   <form action="/client/<%= @id %>/edit" method="post">
     <input name="_method" type="hidden" value="patch">
-    <label for="name">Client Name</label>
+    <label for="name"><h3> Update Client's Name </h3></label>
     <input class ="form-control"  id="name" name="name" type="text">
 
     <button class="btn btn-success" type="submit">Edit Client</button>
   </form>
 
-  <h2> Delete Client </h2>
+  <h3> Delete Client </h3>
   <form action="/client/<%= @id %>/delete" method="post">
     <input name="_method" type="hidden" value="delete">
     <button class="btn btn-danger" type="submit">Delete Client</button>
