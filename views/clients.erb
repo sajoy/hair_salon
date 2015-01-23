@@ -12,7 +12,7 @@
     <% @clients.each() do |client| %>
 
       <tr>
-        <td><%= client.name() %></td>
+        <td><%= client.class() %></td>
         <td>
           <% if client.stylist() != "Needs A Stylist" %>
             <%= client.stylist() %>
