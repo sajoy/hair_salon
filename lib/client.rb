@@ -52,10 +52,9 @@ class Client
     stylist = result.first()
       if stylist != nil
         name = stylist["name"]
-        id = stylist["id"]
-        return Stylist.new({:name => name, :id => id})
+        return name
       else
-        return "Needs A Stylist"
+        return nil
       end
   end
 
