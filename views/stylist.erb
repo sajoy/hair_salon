@@ -30,9 +30,7 @@
 
   <% if @all_clients.any?() %>
     <form action="/add_old_client" method="post">
-    <label for="name"><h3> Add Existing Client </h3></label>
-
-    <label for="client_id">Select a Client</label>
+    <label for="client_id"><h3> Add Existing Client </h3></label>
     <select id='client_id' name='client_id' type='text'>
       <% @all_clients.each() do |client| %>
       <option value="<%= client.id()%>"> <%= client.name() %> </option>

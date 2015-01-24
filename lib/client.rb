@@ -13,7 +13,8 @@ class Client
   end
 
   define_singleton_method(:find) do |id|
-    result = DB.exec("SELECT * FROM clients WHERE id = #{id}")
+    param_id = id.to_i()
+    result = DB.exec("SELECT * FROM clients WHERE id = #{param_id}")
     found = result.first()
     name = found["name"]
     id = found["id"]
