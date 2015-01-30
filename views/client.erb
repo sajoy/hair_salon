@@ -3,6 +3,28 @@
 
   <h2 class="client_name"> <%= @client.name() %></h2>
 
+  </br>
+
+  <h2> Stylist : </h2>
+  <% if @client.stylist() != nil %>
+
+    <h2 class="client_name"> <%= @client.stylist() %> </h2>
+
+  <% else %>
+  </br>
+  <form action="/client_add_stylist" method="post">
+    <label for="stylist_id"><h3> Add to a Stylist </h3></label>
+    <select id='stylist_id' name='stylist_id' type='text'>
+      <% Stylist.all().each() do |stylist| %>
+      <option value="<%= stylist.id()%>"> <%= stylist.name() %> </option>
+      <% end %>
+    </select>
+    <input type="hidden" name ="client_id" value="<%= @id %>">
+    <button class="btn btn-success" type="submit">Add to Stylist</button>
+  </form>
+  <% end %>
+
+
 </div>
 
 

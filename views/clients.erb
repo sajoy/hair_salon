@@ -1,0 +1,20 @@
+
+<h2> Master Client List </h2>
+
+<table class="table">
+  <tr class="info">
+    <td> <h3>Client </h3> </td>
+    <td> <h3> Stylist</h3> </td>
+  </tr>
+
+  <% if @clients.any?() %>
+    <% @clients.each() do |client| %>
+      <tr>
+        <td> <a href="/client/<%= client.id() %>"><%= client.name() %> </a></td>
+        <td>
+          <%= client.stylist() %>
+        </td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>

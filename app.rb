@@ -27,6 +27,7 @@ get('/stylist/:id') do
   @id = params["id"].to_i()
   @stylist = Stylist.find(@id)
   @clients = @stylist.clients()
+  @all_clients = Client.all()
   erb(:stylist)
 end
 
@@ -40,6 +41,18 @@ post('/add_client') do
     @stylist.add_client(new_client)
   end
   @clients = @stylist.clients()
+  @all_clients = Client.all()
+  erb(:stylist)
+end
+
+post('/add_old_client') do
+  client_id = params["client_id"].to_i()
+  @id = params["stylist_id"].to_i()
+  @stylist = Stylist.find(@id)
+  client = Client.find(client_id)
+  @stylist.add_client(client)
+  @clients = @stylist.clients()
+  @all_clients = Client.all()
   erb(:stylist)
 end
 
@@ -49,6 +62,7 @@ patch('/stylist/:id/edit') do
   @stylist.update({:name => name})
   @clients = @stylist.clients()
   @id = @stylist.id()
+  @all_clients = Client.all()
   erb(:stylist)
 end
 
@@ -59,13 +73,31 @@ delete("/stylist/:id/delete") do
   erb(:index)
 end
 
+# needs a route to remove client from stylist's client list but
+# NOT from the databse!!!
+
 # client routes
+
+get('/all_clients') do
+  @clients = Client.all()
+  erb(:clients)
+end
 
 get('/client/:id') do
   @id = params["id"].to_i()
   @client = Client.find(@id)
   erb(:client)
 end
+
+post('/client_add_stylist') do
+  stylist_id = params["stylist_id"].to_i()
+  @id = params["client_id"].to_i()
+  stylist = Stylist.find(stylist_id)
+  @client = Client.find(@id)
+  stylist.add_client(@client)
+  erb(:client)
+end
+
 
 patch('/client/:id/edit') do
   name = params.fetch("name")

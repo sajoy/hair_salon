@@ -23,6 +23,19 @@ h1 {
   padding: 50px;
 }
 
+form {
+  margin-bottom: 15px;
+}
+
+table th {
+  width: auto;
+
+}
+table {
+  text-align: center;
+  font-size: 2em;
+  max-width: 400px;
+}
 
 li {
   list-style: none;

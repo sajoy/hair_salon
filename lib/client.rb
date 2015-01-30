@@ -13,7 +13,8 @@ class Client
   end
 
   define_singleton_method(:find) do |id|
-    result = DB.exec("SELECT * FROM clients WHERE id = #{id}")
+    param_id = id.to_i()
+    result = DB.exec("SELECT * FROM clients WHERE id = #{param_id}")
     found = result.first()
     name = found["name"]
     id = found["id"]
@@ -43,6 +44,19 @@ class Client
 
   define_method(:==) do |other_client|
     name().==(other_client.name())
+  end
+
+  define_method(:stylist) do
+    result = DB.exec("SELECT * FROM
+    appointments JOIN stylists ON (stylists.id = appointments.stylist_id)
+    WHERE appointments.client_id = #{self.id()};")
+    stylist = result.first()
+      if stylist != nil
+        name = stylist["name"]
+        return name
+      else
+        return nil
+      end
   end
 
 
